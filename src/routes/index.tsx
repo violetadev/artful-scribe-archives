@@ -25,6 +25,8 @@ import { cn } from "@/lib/utils";
 import { studioRelease } from "@/lib/release";
 import {
   Dialog,
+  DialogContent,
+  DialogHeader,
   DialogOverlay,
   DialogPortal,
   DialogTitle,
@@ -216,6 +218,82 @@ function SectionImage({ image, index }: { image: Section["images"][number]; inde
       <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Image</span>
       <span className="max-w-xs text-sm text-muted-foreground">{image.alt}</span>
     </div>
+  );
+}
+
+const privacyPolicySections = [
+  {
+    title: "1. Data controller",
+    body: "The developer of this application is the data controller for the purposes of applicable data protection laws.",
+  },
+  {
+    title: "2. No data collection or processing",
+    body: "This application does not collect, store, transmit, or process any personal data.\n\nAll data created or entered in the application is stored locally on your device. It is not accessible to the developer or any third party.",
+  },
+  {
+    title: "3. Local storage",
+    body: "All content, settings, and user-generated data remain on your device only. No data is uploaded to external servers or cloud services.\n\nYou retain full control over this data and may delete it at any time by using the application’s features or uninstalling the application.",
+  },
+  {
+    title: "4. No tracking or analytics",
+    body: "This application does not use analytics tools, advertising identifiers, cookies, or any tracking technologies.\n\nUser activity is not monitored or recorded.",
+  },
+  {
+    title: "5. No third-party access",
+    body: "The application does not share data with third parties, as no personal data is collected or transmitted.\n\nNo external services are integrated for data processing.",
+  },
+  {
+    title: "6. Legal basis (GDPR)",
+    body: "As no personal data is collected or processed, the requirements of the General Data Protection Regulation (GDPR) related to data processing, storage, or transfer do not apply in practice.",
+  },
+  {
+    title: "7. Security",
+    body: "All data remains stored locally on the user’s device. Security of data depends on the user’s device and operating system security measures.",
+  },
+  {
+    title: "8. Changes to this policy",
+    body: "This Privacy Policy may be updated from time to time. Any changes will be reflected within the application or its distribution listing.",
+  },
+  {
+    title: "9. Contact",
+    body: "If you have any questions about this Privacy Policy, you can contact the developer using the contact details provided in the application or its store listing.",
+  },
+] as const;
+
+function PrivacyPolicyDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className="w-fit underline-offset-4 transition hover:text-foreground hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        >
+          Privacy Policy
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-h-[85vh] max-w-2xl gap-0 overflow-hidden p-0 sm:max-w-2xl">
+        <DialogHeader className="border-b border-border px-6 py-5 text-left">
+          <DialogTitle>Privacy Policy</DialogTitle>
+          <p className="text-sm text-muted-foreground">Effective date: May 23, 2026</p>
+        </DialogHeader>
+        <div className="space-y-6 overflow-y-auto px-6 py-5 text-sm text-muted-foreground">
+          <p>
+            This Privacy Policy explains how this application handles information when you use
+            it.
+          </p>
+          {privacyPolicySections.map((section) => (
+            <section key={section.title}>
+              <h3 className="font-medium text-foreground">{section.title}</h3>
+              {section.body.split("\n\n").map((paragraph) => (
+                <p key={paragraph} className="mt-2">
+                  {paragraph}
+                </p>
+              ))}
+            </section>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -599,7 +677,10 @@ function Index() {
         </section>
 
         <footer className="flex flex-col items-start justify-between gap-4 border-t border-border py-10 text-sm text-muted-foreground sm:flex-row sm:items-center">
-          <div>© {new Date().getFullYear()} Studio — free, forever.</div>
+          <div className="flex flex-col gap-2">
+            <div>© {new Date().getFullYear()} Studio — free, forever.</div>
+            <PrivacyPolicyDialog />
+          </div>
           <div className="flex items-center gap-2">
             Made with <Heart className="h-3.5 w-3.5 text-primary" /> for artists.
           </div>
