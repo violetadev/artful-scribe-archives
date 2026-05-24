@@ -11,7 +11,6 @@ import {
   Settings as SettingsIcon,
   Heart,
   Mail,
-  Sparkles,
   Coffee,
   ArrowRight,
   ArrowLeft,
@@ -22,6 +21,7 @@ import {
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { format, parseISO } from "date-fns";
 import { cn } from "@/lib/utils";
+import { studioIconUrl } from "@/lib/brand";
 import { studioRelease } from "@/lib/release";
 import {
   Dialog,
@@ -48,6 +48,8 @@ export const Route = createFileRoute("/")({
         content:
           "Catalog every piece, track exhibitions and submissions, manage your calendar, venues and contacts. With offline data, only you have access to it. Free forever.",
       },
+      { property: "og:image", content: studioIconUrl },
+      { name: "twitter:image", content: studioIconUrl },
     ],
   }),
   component: Index,
@@ -271,12 +273,12 @@ function PrivacyPolicyDialog() {
           Privacy Policy
         </button>
       </DialogTrigger>
-      <DialogContent className="max-h-[85vh] max-w-2xl gap-0 overflow-hidden p-0 sm:max-w-2xl">
-        <DialogHeader className="border-b border-border px-6 py-5 text-left">
+      <DialogContent className="flex max-h-[85vh] max-w-2xl flex-col gap-0 overflow-hidden p-0 sm:max-w-2xl">
+        <DialogHeader className="shrink-0 border-b border-border px-6 py-5 text-left">
           <DialogTitle>Privacy Policy</DialogTitle>
           <p className="text-sm text-muted-foreground">Effective date: May 23, 2026</p>
         </DialogHeader>
-        <div className="space-y-6 overflow-y-auto px-6 py-5 text-sm text-muted-foreground">
+        <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-5 text-sm text-muted-foreground">
           <p>
             This Privacy Policy explains how this application handles information when you use
             it.
@@ -355,9 +357,13 @@ function SectionDetail({
 
 const releaseDateLabel = format(parseISO(studioRelease.releasedAt), "MMMM d, yyyy");
 
+const downloadButtonClass =
+  "inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition hover:brightness-110 sm:w-auto";
+
 function Index() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const downloadReady = studioRelease.downloadUrl.length > 0;
+  const { windows: windowsDownloadUrl, mac: macDownloadUrl } = studioRelease.downloads;
+  const hasDownloads = windowsDownloadUrl.length > 0 || macDownloadUrl.length > 0;
 
   return (
     <main className="min-h-screen">
@@ -367,12 +373,14 @@ function Index() {
       <div className="mx-auto max-w-6xl px-6 sm:px-8">
         <nav className="flex items-center justify-between py-6">
           <div className="flex items-center gap-3">
-            <div
-              className="grid h-10 w-10 place-items-center rounded-xl"
-              style={{ background: "var(--gradient-hero)", boxShadow: "var(--glow-primary)" }}
-            >
-              <Sparkles className="h-5 w-5 text-primary-foreground" />
-            </div>
+            <img
+              src={studioIconUrl}
+              alt=""
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-xl"
+              style={{ boxShadow: "var(--glow-primary)" }}
+            />
             <div className="leading-tight">
               <div className="font-display text-lg font-semibold">Studio</div>
               <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
@@ -380,11 +388,19 @@ function Index() {
               </div>
             </div>
           </div>
-          <div className="hidden gap-8 text-sm text-muted-foreground sm:flex">
-            <a href="#sections" className="hover:text-foreground">The App</a>
-            <a href="#download" className="hover:text-foreground">Download</a>
-            <a href="#support" className="hover:text-foreground">Support the project</a>
-            <a href="#contact" className="hover:text-foreground">Contact</a>
+          <div className="flex items-center gap-4 sm:gap-6">
+            <div className="hidden gap-8 text-sm text-muted-foreground sm:flex">
+              <a href="#sections" className="hover:text-foreground">The App</a>
+              <a href="#support" className="hover:text-foreground">Support the project</a>
+              <a href="#contact" className="hover:text-foreground">Contact</a>
+            </div>
+            <a
+              href="#download"
+              className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:brightness-110"
+              style={{ boxShadow: "var(--glow-primary)" }}
+            >
+              Download
+            </a>
           </div>
         </nav>
 
@@ -545,18 +561,32 @@ function Index() {
                 </dl>
 
                 <p className="mt-4 text-sm text-muted-foreground">
-                  {studioRelease.platform} · offline data stays on your device
+                  Windows & macOS · offline data stays on your device
                 </p>
 
-                {downloadReady ? (
-                  <a
-                    href={studioRelease.downloadUrl}
-                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition hover:brightness-110 sm:w-auto"
-                    style={{ boxShadow: "var(--glow-primary)" }}
-                  >
-                    <Download className="h-4 w-4" />
-                    Download for {studioRelease.platform}
-                  </a>
+                {hasDownloads ? (
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    {windowsDownloadUrl.length > 0 ? (
+                      <a
+                        href={windowsDownloadUrl}
+                        className={downloadButtonClass}
+                        style={{ boxShadow: "var(--glow-primary)" }}
+                      >
+                        <Download className="h-4 w-4" />
+                        Download for Windows
+                      </a>
+                    ) : null}
+                    {macDownloadUrl.length > 0 ? (
+                      <a
+                        href={macDownloadUrl}
+                        className={downloadButtonClass}
+                        style={{ boxShadow: "var(--glow-primary)" }}
+                      >
+                        <Download className="h-4 w-4" />
+                        Download for macOS
+                      </a>
+                    ) : null}
+                  </div>
                 ) : (
                   <p className="mt-6 rounded-xl border border-dashed border-border bg-secondary/30 px-4 py-3 text-sm text-muted-foreground">
                     Add your installer URL in{" "}

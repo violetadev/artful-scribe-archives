@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { studioIconUrl } from "@/lib/brand";
 
 function NotFoundComponent() {
   return (
@@ -72,16 +73,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Studio — Free art management software for artists" },
+      {
+        name: "description",
+        content:
+          "Studio is free art management software for artists: inventory, exhibitions, submissions, calendar, venues and contacts.",
+      },
+      { property: "og:title", content: "Studio — Free Studio for artists" },
+      {
+        property: "og:description",
+        content:
+          "Catalog every piece, track exhibitions and submissions, manage your calendar, venues and contacts. Free forever.",
+      },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: studioIconUrl },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:image", content: studioIconUrl },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: studioIconUrl },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
