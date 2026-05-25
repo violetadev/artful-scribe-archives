@@ -711,8 +711,8 @@ function Index() {
 
         {/* Contact */}
         <section id="contact" className="scroll-mt-24 pb-32">
-          <div className="grid gap-12 sm:grid-cols-[1fr_1.2fr] sm:items-end">
-            <div>
+          <div className="flex flex-col flex-wrap gap-12 lg:flex-row lg:items-end lg:justify-between">
+            <div className="min-w-0 lg:max-w-md lg:flex-1">
               <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 Drop me a message
               </div>
@@ -726,26 +726,26 @@ function Index() {
 
             <a
               href="mailto:collagequeendom@gmail.com"
-              className="group flex items-center justify-between gap-6 rounded-2xl border border-border bg-card p-6 transition hover:border-primary hover:bg-secondary sm:p-8"
+              className="group flex min-w-0 flex-1 flex-wrap items-center justify-between gap-4 rounded-2xl border border-border bg-card p-6 transition hover:border-primary hover:bg-secondary sm:p-8 lg:max-w-xl"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
-              <div className="flex items-center gap-5">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-4 sm:gap-5">
                 <div
-                  className="grid h-14 w-14 place-items-center rounded-xl text-primary-foreground"
+                  className="grid h-14 w-14 shrink-0 place-items-center rounded-xl text-primary-foreground"
                   style={{ background: "var(--gradient-hero)" }}
                 >
                   <Mail className="h-6 w-6" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
                     Email
                   </div>
-                  <div className="mt-1 font-display text-2xl font-semibold sm:text-3xl">
+                  <div className="mt-1 break-all font-display text-lg font-semibold sm:text-xl">
                     collagequeendom@gmail.com
                   </div>
                 </div>
               </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
+              <ArrowRight className="h-5 w-5 shrink-0 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
             </a>
           </div>
         </section>
