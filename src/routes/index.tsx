@@ -25,7 +25,9 @@ import { studioIconUrl } from "@/lib/brand";
 import { studioRelease } from "@/lib/release";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogOverlay,
   DialogPortal,
@@ -360,6 +362,55 @@ const releaseDateLabel = format(parseISO(studioRelease.releasedAt), "MMMM d, yyy
 const downloadButtonClass =
   "inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition hover:brightness-110 sm:w-auto";
 
+function WindowsDownloadDialog({ downloadUrl }: { downloadUrl: string }) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className={downloadButtonClass}
+          style={{ boxShadow: "var(--glow-primary)" }}
+        >
+          <Download className="h-4 w-4" />
+          Download for Windows
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-w-lg gap-4">
+        <DialogHeader>
+          <DialogTitle>Installing on Windows</DialogTitle>
+        </DialogHeader>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Due to the high cost of getting an official certificate for the app, Windows might warn
+          you that this is an unrecognized app. To install it, press{" "}
+          <span className="font-medium text-foreground">More info</span> — a{" "}
+          <span className="font-medium text-foreground">Run anyway</span> button will appear so you
+          can continue.
+        </p>
+        <DialogFooter className="flex-col gap-2 sm:flex-row sm:justify-end">
+          <DialogClose asChild>
+            <button
+              type="button"
+              className="inline-flex w-full items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-medium transition hover:bg-card sm:w-auto"
+            >
+              Cancel
+            </button>
+          </DialogClose>
+          <DialogClose asChild>
+            <a
+              href={downloadUrl}
+              className={downloadButtonClass}
+              style={{ boxShadow: "var(--glow-primary)" }}
+            >
+              <Download className="h-4 w-4" />
+              Download
+            </a>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function Index() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const { windows: windowsDownloadUrl, mac: macDownloadUrl } = studioRelease.downloads;
@@ -567,14 +618,7 @@ function Index() {
                 {hasDownloads ? (
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     {windowsDownloadUrl.length > 0 ? (
-                      <a
-                        href={windowsDownloadUrl}
-                        className={downloadButtonClass}
-                        style={{ boxShadow: "var(--glow-primary)" }}
-                      >
-                        <Download className="h-4 w-4" />
-                        Download for Windows
-                      </a>
+                      <WindowsDownloadDialog downloadUrl={windowsDownloadUrl} />
                     ) : null}
                     {macDownloadUrl.length > 0 ? (
                       <a
