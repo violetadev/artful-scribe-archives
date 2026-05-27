@@ -2,7 +2,7 @@
 export const studioRelease = {
   version: "1.2.1",
   /** ISO date (YYYY-MM-DD) */
-  releasedAt: "2026-05-25",
+  releasedAt: "2026-05-27",
   downloads: {
     /** Served from public/releases/ (Vite copies public/ to site root) */
     windows: "/releases/Studio_by_Saki_1.2.1_x64_en-US.msi",
