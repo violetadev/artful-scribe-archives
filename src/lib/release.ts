@@ -6,6 +6,6 @@ export const studioRelease = {
   downloads: {
     /** Served from public/releases/ (Vite copies public/ to site root) */
     windows: "/releases/Studio_by_Saki_1.2.1_x64_en-US.msi",
-    mac: "https://github.com/violetadev/artful-scribe-archives/releases/download/v1.1.0/Studio_by_Saki_1.2.1_aarch64.dmg",
+    mac: "https://github.com/violetadev/artful-scribe-archives/releases/download/v1.2.1/Studio.by.Saki_1.2.1_aarch64.dmg",
   },
 } as const;
