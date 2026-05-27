@@ -435,7 +435,7 @@ function Index() {
             <div className="leading-tight">
               <div className="font-display text-lg font-semibold">Studio</div>
               <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                Studio - Free Art Management Software
+                Studio by Saki - Free Art Management Software
               </div>
             </div>
           </div>
@@ -752,7 +752,7 @@ function Index() {
 
         <footer className="flex flex-col items-start justify-between gap-4 border-t border-border py-10 text-sm text-muted-foreground sm:flex-row sm:items-center">
           <div className="flex flex-col gap-2">
-            <div>© {new Date().getFullYear()} Studio — free, forever.</div>
+            <div>© {new Date().getFullYear()} Studio by Saki — free, forever.</div>
             <PrivacyPolicyDialog />
           </div>
           <div className="flex items-center gap-2">
