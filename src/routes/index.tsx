@@ -411,6 +411,62 @@ function WindowsDownloadDialog({ downloadUrl }: { downloadUrl: string }) {
   );
 }
 
+function MacDownloadDialog({ downloadUrl }: { downloadUrl: string }) {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className={downloadButtonClass}
+          style={{ boxShadow: "var(--glow-primary)" }}
+        >
+          <Download className="h-4 w-4" />
+          Download for macOS
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-w-lg gap-4">
+        <DialogHeader>
+          <DialogTitle>Installing on macOS</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4 text-sm leading-relaxed text-muted-foreground">
+          <p>
+            macOS may block Studio the first time you open it because it isn&apos;t notarized due
+            to the high cost of an Apple Developer Program membership.
+          </p>
+          <p>
+            To open it, try launching Studio once, then go to{" "}
+            <span className="font-medium text-foreground">System Settings</span> →{" "}
+            <span className="font-medium text-foreground">Privacy & Security</span> and click{" "}
+            <span className="font-medium text-foreground">Open Anyway</span> under the security
+            message. After that, reopen Studio and confirm{" "}
+            <span className="font-medium text-foreground">Open</span>.
+          </p>
+        </div>
+        <DialogFooter className="flex-col gap-2 sm:flex-row sm:justify-end">
+          <DialogClose asChild>
+            <button
+              type="button"
+              className="inline-flex w-full items-center justify-center rounded-full border border-border px-6 py-3 text-sm font-medium transition hover:bg-card sm:w-auto"
+            >
+              Cancel
+            </button>
+          </DialogClose>
+          <DialogClose asChild>
+            <a
+              href={downloadUrl}
+              className={downloadButtonClass}
+              style={{ boxShadow: "var(--glow-primary)" }}
+            >
+              <Download className="h-4 w-4" />
+              Download
+            </a>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function Index() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const { windows: windowsDownloadUrl, mac: macDownloadUrl } = studioRelease.downloads;
@@ -621,14 +677,7 @@ function Index() {
                       <WindowsDownloadDialog downloadUrl={windowsDownloadUrl} />
                     ) : null}
                     {macDownloadUrl.length > 0 ? (
-                      <a
-                        href={macDownloadUrl}
-                        className={downloadButtonClass}
-                        style={{ boxShadow: "var(--glow-primary)" }}
-                      >
-                        <Download className="h-4 w-4" />
-                        Download for macOS
-                      </a>
+                      <MacDownloadDialog downloadUrl={macDownloadUrl} />
                     ) : null}
                   </div>
                 ) : (
