@@ -358,6 +358,8 @@ function SectionDetail({
 }
 
 const releaseDateLabel = format(parseISO(studioRelease.releasedAt), "MMMM d, yyyy");
+const microsoftStoreUrl =
+  "https://apps.microsoft.com/store/detail/9PCTQ6PDKTB7?cid=DevShareMCLPCS";
 
 const downloadButtonClass =
   "inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition hover:brightness-110 sm:w-auto";
@@ -673,6 +675,16 @@ function Index() {
 
                 {hasDownloads ? (
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    <a
+                      href={microsoftStoreUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={downloadButtonClass}
+                      style={{ boxShadow: "var(--glow-primary)" }}
+                    >
+                      <Download className="h-4 w-4" />
+                      Download from Microsoft Store
+                    </a>
                     {windowsDownloadUrl.length > 0 ? (
                       <WindowsDownloadDialog downloadUrl={windowsDownloadUrl} />
                     ) : null}
